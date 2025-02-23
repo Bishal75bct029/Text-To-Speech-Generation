@@ -1,0 +1,18 @@
+{
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "auto",
+    "plugins": ["./node_modules/prettier-plugin-sort-imports/dist/index.js", "prettier-plugin-tailwindcss"],
+    "sortingMethod": "alphabetical",
+    "importTypeOrder": ["NPMPackages", "localImports"],
+    "newlineBetweenTypes": true,
+    "tailwindConfig": "./tailwind.config.ts",
+    "tailwindFunctions": ["clsx"],
+    "tailwindPreserveDuplicates": true
+  }
+  
