@@ -1,7 +1,23 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  webpack(config) {
+    // Add SVGR loader
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            native: true,
+            icon: true,
+          },
+        },
+      ],
+    });
+
+    return config;
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
