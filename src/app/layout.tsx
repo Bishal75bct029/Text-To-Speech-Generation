@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 
+import { ClerkProvider } from '@clerk/nextjs';
+
 import './globals.css';
+import { ConvexClientProvider } from './providers/ConvexClerkProvider';
 
 const manRope = Manrope({
   variable: '--font-manrope',
@@ -20,8 +23,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={` ${manRope.variable} antialiased`}>{children}</body>
-    </html>
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      appearance={{
+        layout: {
+          socialButtonsVariant: 'iconButton',
+          logoImageUrl: '/icons/auth-logo.svg',
+        },
+        variables: {
+          colorBackground: '#15171C',
+          colorText: '#FFF',
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={` ${manRope.variable} antialiased`}>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

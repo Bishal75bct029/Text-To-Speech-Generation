@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 
 import Link from 'next/link';
 
+import { SignedIn, SignedOut } from '@clerk/nextjs';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -35,7 +37,7 @@ const LeftSideBar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="sticky top-0 z-10">
+    <div className="fixed top-0 z-10 h-screen w-[15rem]">
       <div className="sticky left-0 top-0 flex h-screen flex-col gap-2 bg-black-1 py-8 text-white-1">
         <Image src={'./icons/auth-logo.svg'} alt="" width={128} height={30} className="mx-6 mb-12" />
         {navLinks.map(({ name, link, icon }, idx) => {
@@ -60,7 +62,12 @@ const LeftSideBar = () => {
           );
         })}
         <div className="mx-6 mt-auto">
-          <Button>Log out</Button>
+          <SignedIn>
+            <Button>Log out</Button>
+          </SignedIn>
+          <SignedOut>
+            <Button>Login</Button>
+          </SignedOut>
         </div>
       </div>
     </div>
