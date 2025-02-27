@@ -116,7 +116,7 @@ export interface CarouselProps {
 
 export interface ProfileCardProps {
   podcastData: ProfilePodcastProps;
-  imageUrl?: string;
+  imageUrl: string;
   userFirstName: string;
 }
 
