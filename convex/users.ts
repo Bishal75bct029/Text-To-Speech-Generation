@@ -17,9 +17,39 @@ export const fetchUserById = query({
   },
 });
 
+export const getTopUserByPodcastCount = query({
+  args: {},
+  handler: async (ctx) => {
+    const user = await ctx.db.query('users').collect();
+
+    const userData = await Promise.all(
+      user.map(async (u) => {
+        const podcasts = await ctx.db
+          .query('podcasts')
+          .filter((q) => q.eq(q.field('authorId'), u.clerkId))
+          .collect();
+
+        const sortedPodcasts = podcasts.sort((a, b) => b.views - a.views);
+
+        return {
+          ...u,
+          totalPodcasts: podcasts.length,
+          podcast: sortedPodcasts.map(({ title, _id }) => ({
+            podcastTitle: title,
+            podcastId: _id,
+          })),
+        };
+      }),
+    );
+
+    return userData.sort((a, b) => b.totalPodcasts - a.totalPodcasts);
+  },
+});
+
 export const createUser = internalMutation({
   args: userSchema,
   handler: async (ctx, args) => {
+    console.log('here it is called and error');
     await ctx.db.insert('users', args);
   },
 });

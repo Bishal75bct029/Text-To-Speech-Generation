@@ -12,10 +12,10 @@ export const podcastSchema = {
   user: v.id('users'),
   title: v.string(),
   description: v.string(),
-  audioUrl: v.optional(v.string()),
-  audioStorageId: v.optional(v.id('_storage')),
-  imageUrl: v.optional(v.string()),
-  imageStorageId: v.optional(v.id('_storage')),
+  audioUrl: v.string(),
+  audioStorageId: v.id('_storage'),
+  imageUrl: v.string(),
+  imageStorageId: v.id('_storage'),
   author: v.string(),
   authorId: v.string(),
   authorImageUrl: v.string(),
@@ -28,8 +28,10 @@ export const podcastSchema = {
 
 export default defineSchema({
   podcasts: defineTable(podcastSchema)
+    .index('by_views', ['views'])
+    .index('by_authorId', ['authorId'])
     .searchIndex('search_author', { searchField: 'author' })
     .searchIndex('search_title', { searchField: 'title' })
-    .searchIndex('searchDescription', { searchField: 'description' }),
+    .searchIndex('search_description', { searchField: 'description' }),
   users: defineTable(userSchema),
 });

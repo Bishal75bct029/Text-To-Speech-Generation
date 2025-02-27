@@ -3,4 +3,5 @@ import HomeIcon from './home.svg';
 import MicrophoneIcon from './microphone.svg';
 import ProfileIcon from './profile.svg';
 
-export { DiscoverIcon, HomeIcon, MicrophoneIcon, ProfileIcon };
+export { HomeIcon, MicrophoneIcon, ProfileIcon };
+export default DiscoverIcon;

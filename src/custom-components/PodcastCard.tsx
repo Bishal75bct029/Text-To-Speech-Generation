@@ -1,13 +1,36 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const PodcastCard = () => {
+import { PodcastCardProps } from '@/@types';
+
+const PodcastCard = ({ imgUrl, title, description, podcastId }: PodcastCardProps) => {
+  const router = useRouter();
+
+  const handleViews = () => {
+    // increase views
+
+    router.push(`/podcasts/${podcastId}`, {
+      scroll: true,
+    });
+  };
+
   return (
-    <section className="flex flex-col gap-2">
-      <Image width={1} height={1} src={'/images/Podcast-Info.png'} alt="" className="size-[10.875rem] rounded-lg" />
-      <span>The Egyptial</span>
-      <span className="text-sm-2 text-white-4">Apple Music Dance</span>
-    </section>
+    <div className="cursor-pointer" onClick={handleViews}>
+      <figure className="flex flex-col gap-2">
+        <Image
+          src={imgUrl}
+          width={174}
+          height={174}
+          alt={title}
+          className="aspect-square h-fit w-full rounded-xl 2xl:size-[200px]"
+        />
+        <div className="flex flex-col">
+          <h1 className="text-16 truncate font-bold text-white-1">{title}</h1>
+          <h2 className="text-12 truncate font-normal capitalize text-white-4">{description}</h2>
+        </div>
+      </figure>
+    </div>
   );
 };
 

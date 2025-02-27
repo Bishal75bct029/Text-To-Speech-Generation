@@ -3,10 +3,26 @@
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
-import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProvider as ReactHookFormProvider,
+  useForm,
+  useFormContext,
+  UseFormProps,
+} from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+
+type FormProps<T extends FieldValues> = React.PropsWithChildren<UseFormProps<T>>;
+
+const FormProvider = <T extends FieldValues>({ children, ...rest }: FormProps<T>) => {
+  const form = useForm<T>(rest);
+  return <ReactHookFormProvider {...form}>{children}</ReactHookFormProvider>;
+};
 
 const Form = FormProvider;
 
@@ -135,4 +151,4 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 );
 FormMessage.displayName = 'FormMessage';
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+export { useFormField, Form, FormItem, FormProvider, FormLabel, FormControl, FormDescription, FormMessage, FormField };

@@ -7,12 +7,14 @@ import { internal } from './_generated/api';
 import { httpAction } from './_generated/server';
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
+  console.log('here i am');
   const event = await validateRequest(request);
   if (!event) {
     return new Response('Invalid request', { status: 400 });
   }
   switch (event.type) {
     case 'user.created':
+      console.log('here i am and where are you man');
       await ctx.runMutation(internal.users.createUser, {
         clerkId: event.data.id,
         name: event.data.first_name!,
@@ -51,6 +53,7 @@ http.route({
 const validateRequest = async (req: Request): Promise<WebhookEvent | undefined> => {
   const webhookSecret = process.env.CLERK_WEBHOOK_SECRET!;
   if (!webhookSecret) {
+    console.log('error is here');
     throw new Error('CLERK_WEBHOOK_SECRET is not defined');
   }
   const payloadString = await req.text();
@@ -62,6 +65,7 @@ const validateRequest = async (req: Request): Promise<WebhookEvent | undefined> 
   };
   const wh = new Webhook(webhookSecret);
   const event = wh.verify(payloadString, svixHeaders);
+
   return event as unknown as WebhookEvent;
 };
 

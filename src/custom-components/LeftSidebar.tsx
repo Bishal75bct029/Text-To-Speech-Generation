@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Link from 'next/link';
 
@@ -35,6 +35,7 @@ const navLinks = [
 
 const LeftSideBar = () => {
   const pathName = usePathname();
+  const router = useRouter();
 
   return (
     <div className="fixed top-0 z-10 h-screen w-[15rem]">
@@ -66,7 +67,7 @@ const LeftSideBar = () => {
             <Button>Log out</Button>
           </SignedIn>
           <SignedOut>
-            <Button>Login</Button>
+            <Button onClick={() => router.push('/sign-in')}>Login</Button>
           </SignedOut>
         </div>
       </div>

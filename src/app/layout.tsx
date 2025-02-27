@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 
 import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from 'sonner';
 
 import './globals.css';
+import AudioProvider from './providers/AudioProviders';
 import { ConvexClientProvider } from './providers/ConvexClerkProvider';
 
 const manRope = Manrope({
@@ -31,16 +33,22 @@ export default function RootLayout({
           logoImageUrl: '/icons/auth-logo.svg',
         },
         variables: {
-          colorBackground: '#15171C',
-          colorText: '#FFF',
+          colorBackground: '#15171c',
+          colorPrimary: '',
+          colorText: 'white',
+          colorInputBackground: '#1b1f29',
+          colorInputText: 'white',
         },
       }}
     >
-      <html lang="en">
-        <body className={` ${manRope.variable} antialiased`}>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
-        </body>
-      </html>
+      <AudioProvider>
+        <html lang="en">
+          <body className={` ${manRope.variable} antialiased`}>
+            <Toaster />
+            <ConvexClientProvider>{children}</ConvexClientProvider>
+          </body>
+        </html>
+      </AudioProvider>
     </ClerkProvider>
   );
 }

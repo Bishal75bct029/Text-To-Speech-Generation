@@ -87,12 +87,10 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-/* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -127,6 +125,7 @@ body {
   background: #f97535;
 }
 .cl-formButtonPrimary {
+  padding: 0.8rem;
   background: #f97535;
 }
 .cl-footerActionLink {
@@ -142,7 +141,9 @@ body {
 .cl-internal-4a7e9l {
   color: white;
 }
-
+.cl-formFieldInput {
+  padding: 1.4rem;
+}
 .cl-userButtonPopoverActionButtonIcon {
   color: white;
 }

@@ -2,7 +2,7 @@ import { SignIn } from '@clerk/nextjs';
 
 const ApplicationSignIn = () => {
   return (
-    <div>
+    <div className="flex-center glassmorphism-auth h-screen w-full">
       <SignIn />
     </div>
   );
